@@ -450,7 +450,7 @@ If CareSync has helped you, please consider:
 </p>
 
 <p align="center">
-  <sub>Made with ❤️ by mohamed selim & Contributors</sub>
+  <sub>Made with ❤️ by mohamed selim & Abdullah Afifi & Ahmed refaat & nour salam & shimaa elgindy & omnia eldeep ❤️</sub>
 </p>
 
 
