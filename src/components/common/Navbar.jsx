@@ -1,0 +1,323 @@
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Bars3Icon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { useTheme } from "../../contexts/ThemeContext";
+import { useAuth } from "../../contexts/AuthContext";
+
+
+import { useNavigate } from "react-router-dom";
+
+import useScrollSpy from "../../hooks/useScrollSpy";
+import { useTranslation } from "react-i18next";
+
+const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
+  const { user } = useAuth();
+  const location = useLocation();
+  const mobileMenuRef = useRef(null);
+
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/register";
+
+  const sectionIds = [
+    "home",
+    "features",
+    "pricing",
+    "testimonials",
+    "contact-form",
+  ];
+  const activeSection = useScrollSpy(sectionIds, 100);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
+  const handleNavigation = (id, isSection = true, path = null) => {
+    if (path) {
+      navigate(path, { replace: true });
+      return;
+    }
+    if (!isSection) {
+      navigate(`/${id}`, { replace: true });
+      return;
+    }
+    if (location.pathname === "/") {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate("/", {
+        state: { scrollTo: id },
+      });
+    }
+  };
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    if (location.state && location.state.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+          window.history.replaceState({}, document.title);
+        }, 100);
+      }
+    }
+  }, [location]);
+
+  const { t, i18n } = useTranslation();
+
+  const menuItems = isAuthPage
+    ? [{ name: t("nav.home"), id: "home" }]
+    : [
+        { name: t("nav.home"), id: "home", isSection: true },
+        { name: t("nav.features"), id: "features", isSection: true },
+        { name: t("nav.blog"), path: "/blog", isSection: false },
+        { name: t("nav.testimonials"), id: "testimonials", isSection: true },
+        { name: t("nav.contact"), id: "contact-form", isSection: true },
+      ];
+
+  return (
+    <nav className="fixed top-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-gray-200/50 dark:border-gray-800/50 z-50 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center space-x-4 md:space-x-6">
+            <a
+              key="Logo"
+              href="/"
+              onClick={handleLogoClick}
+              className="flex items-center"
+            >
+              <div className="flex items-center">
+                <div className="w-8 h-8 md:w-10 md:h-10">
+                  <img
+                    src="/CareSync-Logo.png"
+                    alt="CareSync Logo"
+                    className="w-full h-full transition  animate-beats"
+                  />
+                </div>
+                <span className="ml-2 md:ml-3 font-bold text-emerald-600 dark:text-emerald-400 text-lg md:text-xl">
+                  CareSync
+                </span>
+              </div>
+            </a>
+
+            {isAuthPage && (
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/");
+                }}
+                className="hidden md:block text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium text-sm md:text-base"
+              >
+                {t("nav.home")}
+              </a>
+            )}
+          </div>
+
+          {!isAuthPage && (
+            <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+              {menuItems.map((item) => (
+                <a
+                  key={item.id}
+                  href={item.path ? item.path : `#${item.id}`}
+                  onClick={(e) => {
+                    handleNavigation(item.id, item.isSection, item.path);
+                  }}
+                  className={`relative transition-all duration-300 font-medium group px-2 py-1 rounded-md text-sm xl:text-base ${
+                    item.path
+                      ? location.pathname === item.path
+                        ? "text-emerald-600 dark:text-emerald-400 font-semibold drop-shadow-sm bg-emerald-50 dark:bg-emerald-900/20"
+                        : "text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                      : activeSection === item.id
+                      ? "text-emerald-600 dark:text-emerald-400 font-semibold drop-shadow-sm bg-emerald-50 dark:bg-emerald-900/20"
+                      : "text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                  }`}
+                >
+                  {item.name}
+                  <span
+                    className={`absolute left-0 -bottom-1 h-[2px] bg-emerald-600 transition-all duration-300 ${
+                      activeSection === item.id
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                  {activeSection === item.id && (
+                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                  )}
+                </a>
+              ))}
+            </div>
+          )}
+
+          <div className="flex items-center space-x-3 md:space-x-4">
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 md:p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label="Toggle dark mode"
+            >
+              {isDark ? (
+                <SunIcon className="h-5 w-5 md:h-6 md:w-6" />
+              ) : (
+                <MoonIcon className="h-5 w-5 md:h-6 md:w-6" />
+              )}
+            </button>
+
+            <select
+              value={i18n.language}
+              onChange={(e) => i18n.changeLanguage(e.target.value)}
+              className="text-sm bg-transparent border border-gray-300 dark:border-gray-700 rounded-md px-2 py-1 text-gray-700 dark:text-gray-200"
+              aria-label="Select language"
+              title="Language"
+            >
+              <option value="en">EN</option>
+              <option value="ar">AR</option>
+            </select>
+
+            <div className="hidden lg:flex items-center space-x-4">
+              {user ? (
+                <Link
+                  to={`/${user.role}`}
+                  className="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium text-sm"
+                >
+                  {t("nav.dashboard")}
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium text-sm"
+                  >
+                    {t("auth.signIn")}
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="gradient-accent text-white px-4 py-2 rounded-xl hover:shadow-lg hover:scale-105 transition-transform duration-300 font-semibold text-sm"
+                  >
+                    {t("auth.getStarted")}
+                  </Link>
+                </>
+              )}
+            </div>
+
+            <div className="lg:hidden flex items-center space-x-2">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors p-1.5"
+              >
+                <Bars3Icon className="h-6 w-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`fixed inset-0 z-40 lg:hidden transition-opacity duration-300 ${
+          isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div
+          className={`fixed inset-0 bg-black/20 dark:bg-black/40 transition-opacity duration-300 ${
+            isMobileMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+
+        <div
+          ref={mobileMenuRef}
+          className={`fixed right-0 top-20 w-64 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out ${
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="pt-4 pb-6">
+            {menuItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.path ? item.path : `#${item.id}`}
+                className={`block py-3 px-6 transition-all duration-300 font-medium relative group
+                after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-emerald-600 after:scale-x-0 after:origin-center after:transition-transform after:duration-300
+                hover:after:scale-x-100 ${
+                  item.path
+                    ? location.pathname === item.path
+                      ? "text-emerald-600 dark:text-emerald-400 after:scale-x-100 bg-emerald-50 dark:bg-emerald-900/20 font-semibold"
+                      : "text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400"
+                    : activeSection === item.id
+                    ? "text-emerald-600 dark:text-emerald-400 font-semibold after:scale-x-100 bg-emerald-50 dark:bg-emerald-900/20"
+                    : "text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400"
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsMobileMenuOpen(false);
+                  handleNavigation(item.id, item.isSection, item.path);
+                }}
+              >
+                {item.name}
+              </a>
+            ))}
+
+            <div className="border-t border-gray-200 dark:border-gray-700 mt-4 pt-4 px-6">
+              {user ? (
+                <Link
+                  to={`/${user.role}`}
+                  className="block py-3 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="block py-3 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="block gradient-accent text-white px-4 py-3 rounded-lg text-center font-semibold mt-2 hover:shadow-lg hover:scale-105 transition-transform duration-300"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Get Started
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

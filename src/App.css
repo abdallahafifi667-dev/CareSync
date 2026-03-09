@@ -1,0 +1,77 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: var(--neutral-500);
+}
+
+/* Light mode hover */
+.social-icon:hover .icon {
+  color: white;
+}
+
+/* Dark mode hover */
+.dark .social-icon:hover .icon {
+  color: white;
+}
+
+/* Default icon colors */
+.icon {
+  color: #4b5563; /* Tailwind's gray-700 */
+}
+
+.dark .icon {
+  color: #d1d5db; /* Tailwind's gray-300 */
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  cursor: none;
+}
+
+.text-glow {
+  text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
+}
+
+/* Custom cursor hide for all interactive elements */
+button, a, input, textarea, select {
+  cursor: none;
+}
