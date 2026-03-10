@@ -2,7 +2,7 @@ import { HeartIcon } from "@heroicons/react/24/solid";
 import { ChevronDoubleUpIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "../shared/hooks/contexts/ThemeContext";
 import { useTranslation } from "react-i18next";
 
 export default function Footer() {
@@ -159,11 +159,7 @@ export default function Footer() {
                 {t("footer.openSource")}
               </a>
             </div>
-            <div className="flex items-center gap-2 mt-3">
-              <span>{t("footer.madeWith")}</span>
-              <HeartIcon className="w-5 h-5 text-red-500" />
-              <span>{t("footer.byTeam")}</span>
-            </div>
+
           </div>
         </div>
       </div>

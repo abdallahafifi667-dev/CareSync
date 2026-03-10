@@ -10,7 +10,7 @@ import {
   EnvelopeIcon
 } from '@heroicons/react/24/outline';
 import Footer from './Footer';
-import Navbar from '../components/common/Navbar';
+import Navbar from '../shared/components/common/Navbar';
 
 function TermsOfService() {
   const lastUpdated = "January 15, 2025";
@@ -134,7 +134,7 @@ function TermsOfService() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-        <Navbar/>
+      <Navbar />
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 overflow-hidden">
         {/* Background Elements */}
@@ -148,16 +148,16 @@ function TermsOfService() {
             <DocumentTextIcon className="w-4 h-4 mr-2" />
             Legal Documentation
           </div>
-          
+
           <h1 className="text-4xl lg:text-6xl font-black text-gray-900 dark:text-gray-100 leading-tight mb-6">
             Terms of
             <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent"> Service</span>
           </h1>
-          
+
           <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed font-medium max-w-2xl mx-auto mb-8">
             Please read these terms carefully before using CareSync's healthcare management platform
           </p>
-          
+
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 inline-flex items-center space-x-3">
             <InformationCircleIcon className="h-6 w-6 text-blue-600 dark:text-blue-400 flex-shrink-0" />
             <span className="text-blue-800 dark:text-blue-200 font-medium">
@@ -208,7 +208,7 @@ function TermsOfService() {
                     {section.title}
                   </h2>
                 </div>
-                
+
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
                   <div className="space-y-6">
                     {section.content.map((paragraph, index) => (
@@ -234,7 +234,7 @@ function TermsOfService() {
             <p className="text-white/90 text-lg mb-8 leading-relaxed">
               If you have any questions about these Terms of Service, please don't hesitate to contact our legal team.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a
                 href="mailto:legal@caresync.com"
@@ -243,7 +243,7 @@ function TermsOfService() {
                 <EnvelopeIcon className="h-5 w-5" />
                 <span>support@caresync.com</span>
               </a>
-              
+
               <a
                 href="/contact"
                 className="border-2 border-white text-white px-8 py-4 rounded-xl hover:bg-white hover:text-emerald-600 transition-all duration-300 font-semibold flex items-center justify-center space-x-2"

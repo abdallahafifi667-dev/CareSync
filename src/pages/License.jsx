@@ -14,7 +14,7 @@ import {
   HeartIcon
 } from "@heroicons/react/24/outline";
 import Footer from "./Footer";
-import Navbar from "../components/common/Navbar";
+import Navbar from "../shared/components/common/Navbar";
 
 const LicensePage = () => {
   const licenseTerms = [

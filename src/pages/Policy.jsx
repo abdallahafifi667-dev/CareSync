@@ -18,7 +18,7 @@ import {
 import { Cookie } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Footer from './Footer';
-import Navbar from '../components/common/Navbar';
+import Navbar from '../shared/components/common/Navbar';
 
 const CookiePolicy = () => {
   const [cookieSettings, setCookieSettings] = useState({

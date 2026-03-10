@@ -5,57 +5,55 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import { MessageProvider } from "./contexts/MessageContext";
+import { AuthProvider, useAuth } from "./shared/hooks/contexts/AuthContext";
+import { MessageProvider } from "./shared/hooks/contexts/MessageContext";
 import LandingPage from "./pages/LandingPage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
-import Layout from "./components/common/Layout";
+import Layout from "./shared/components/common/Layout";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import PatientDashboard from "./components/patient/PatientDashboard";
-import DoctorDashboard from "./components/doctor/DoctorDashboard";
-import PharmacistDashboard from "./components/pharmacist/PharmacistDashboard";
-import LoadingSpinner from "./components/common/LoadingSpinner";
+import PatientDashboard from "./shared/components/patient/PatientDashboard";
+import DoctorDashboard from "./shared/components/doctor/DoctorDashboard";
+import PharmacistDashboard from "./shared/components/pharmacist/PharmacistDashboard";
+import LoadingSpinner from "./shared/components/common/LoadingSpinner";
+import PremiumLoader from "./shared/components/common/PremiumLoader";
 import ProfilePage from "./pages/ProfilePage";
-import "./index.css";
-import Prescriptions from "./components/patient/Prescriptions";
-import { AppointmentProvider } from "./contexts/AppointmentContext";
-import { OfflineProvider } from "./contexts/OfflineContext";
-import Appointments from "./components/patient/Appointments";
-import Schedule from "./components/doctor/Schedule";
-import HealthLogs from "./components/patient/HealthLogs";
+import "./shared/styles/index.css";
+import Prescriptions from "./shared/components/patient/Prescriptions";
+import { AppointmentProvider } from "./shared/hooks/contexts/AppointmentContext";
+import { OfflineProvider } from "./shared/hooks/contexts/OfflineContext";
+import Appointments from "./shared/components/patient/Appointments";
+import Schedule from "./shared/components/doctor/Schedule";
+import HealthLogs from "./shared/components/patient/HealthLogs";
 import Blog from "./pages/Blog";
 import Career from "./pages/Career1";
 import Notifications from "./pages/Notifications";
 import PrivacyPolicy from "./pages/privacy";
 import Feature from "./pages/Feature";
-import Patients from "./components/doctor/Patients";
-import NewPatientForm from "./components/doctor/NewPatientForm";
-import Messages from "./components/common/Messages";
-import Settings from "./components/common/Settings";
-import Inventory from "./components/patient/Inventory";
-import Prescription from "./components/pharmacist/Prescriptions";
-import PharmacistInventory from "./components/pharmacist/Inventory";
+import Patients from "./shared/components/doctor/Patients";
+import NewPatientForm from "./shared/components/doctor/NewPatientForm";
+import Messages from "./shared/components/common/Messages";
+import Settings from "./shared/components/common/Settings";
+import Inventory from "./shared/components/patient/Inventory";
+import Prescription from "./shared/components/pharmacist/Prescriptions";
+import PharmacistInventory from "./shared/components/pharmacist/Inventory";
 import { Toaster } from "react-hot-toast";
 import CookiePolicy from "./pages/Policy";
 import GDPRCompliance from "./pages/GDPRCompliance";
 import TermsOfServices from "./pages/TermsOfServices";
 import LicensePage from "./pages/License";
 import ForgotPassword from "./pages/auth/ForgotPassword";
-import CursorBurst from "./components/common/CursorBurst"; // Import the new component
-import ScrollToTop from "./components/common/ScrollToTop";
+import VerifyCode from "./pages/auth/VerifyCode";
+import CursorBurst from "./shared/components/common/CursorBurst"; // Import the new component
+import ScrollToTop from "./shared/components/common/ScrollToTop";
 
 // Protected Route Component
 const ProtectedRoute = ({ children, requiredRole = null }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
+    return <PremiumLoader />;
   }
 
   if (!user) return <Navigate to="/login" replace />;
@@ -70,11 +68,7 @@ const PublicRoute = ({ children, authOnly = false }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
+    return <PremiumLoader />;
   }
 
   if (user && authOnly) return <Navigate to={`/${user.role}`} replace />;
@@ -86,26 +80,17 @@ const AppRoutes = () => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
-        <div className="text-center">
-          <LoadingSpinner size="xl" />
-          <p className="mt-4 text-gray-600 dark:text-gray-400">
-            Loading CareSync...
-          </p>
-        </div>
-      </div>
-    );
+    return <PremiumLoader />;
   }
 
   return (
     <>
       {/* Add CursorBurst component - only show if user is not on auth pages */}
-      {!window.location.pathname.includes('/login') && 
-       !window.location.pathname.includes('/register') && 
-       !window.location.pathname.includes('/forgot-password') && 
-       <CursorBurst />}
-      
+      {!window.location.pathname.includes('/login') &&
+        !window.location.pathname.includes('/register') &&
+        !window.location.pathname.includes('/forgot-password') &&
+        <CursorBurst />}
+
       <Routes>
         {/* Public Routes */}
         <Route
@@ -149,6 +134,14 @@ const AppRoutes = () => {
           element={
             <PublicRoute authOnly={true}>
               <ForgotPassword />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/verify-code"
+          element={
+            <PublicRoute>
+              <VerifyCode />
             </PublicRoute>
           }
         />

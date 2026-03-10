@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/common/Navbar";
+import Navbar from "../shared/components/common/Navbar";
 import Footer from "./Footer";
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "../shared/hooks/contexts/ThemeContext";
 
 
 export default function PrivacyPolicy() {
@@ -28,30 +28,28 @@ export default function PrivacyPolicy() {
     <>
       {/* Navbar with scroll-hide */}
       <div
-        className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 ${
-          showNavbar ? "translate-y-0" : "-translate-y-full"
-        }`}
+        className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 ${showNavbar ? "translate-y-0" : "-translate-y-full"
+          }`}
       >
         <Navbar />
       </div>
 
       {/* Page Wrapper with dark mode from context */}
       <div
-        className={`pt-16 min-h-screen flex flex-col ${
-          theme === "dark"
+        className={`pt-16 min-h-screen flex flex-col ${theme === "dark"
             ? "dark bg-secondary text-gray-300"
             : "bg-gray-50 text-gray-800"
-        }`}
+          }`}
       >
         {/* Page Title */}
         <section className="bg-gray-100 dark:bg-gray-800/40 py-12 text-center border-b border-gray-300 dark:border-gray-700">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-                Privacy Policy
-            </h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">
-                Last Updated: August 16, 2025
-            </p>
-         </section>
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+            Privacy Policy
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
+            Last Updated: August 16, 2025
+          </p>
+        </section>
 
         {/* Main Content */}
         <main className="max-w-4xl mx-auto px-6 py-12 space-y-8 flex-1">

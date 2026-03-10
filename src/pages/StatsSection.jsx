@@ -2,7 +2,7 @@ import { UsersIcon, HeartIcon, ClockIcon, ShieldCheckIcon, BuildingOffice2Icon, 
 import CountUp from 'react-countup';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../shared/hooks/contexts/ThemeContext';
 import { useTranslation } from 'react-i18next';
 
 export default function StatsSection() {
@@ -23,31 +23,31 @@ export default function StatsSection() {
   }, []);
 
   const stats = [
-    { 
-      labelKey: 'stats.betaPartners.label', 
-      value: 25, 
-      suffix: '+', 
+    {
+      labelKey: 'stats.betaPartners.label',
+      value: 25,
+      suffix: '+',
       icon: BuildingOffice2Icon,
       descriptionKey: 'stats.betaPartners.description'
     },
-    { 
-      labelKey: 'stats.activeUsers.label', 
-      value: 150, 
-      suffix: '+', 
+    {
+      labelKey: 'stats.activeUsers.label',
+      value: 150,
+      suffix: '+',
       icon: UsersIcon,
       descriptionKey: 'stats.activeUsers.description'
     },
-    { 
-      labelKey: 'stats.patients.label', 
-      value: 750, 
-      suffix: '+', 
+    {
+      labelKey: 'stats.patients.label',
+      value: 750,
+      suffix: '+',
       icon: HeartIcon,
       descriptionKey: 'stats.patients.description'
     },
-    { 
-      labelKey: 'stats.uptime.label', 
-      value: 99.2, 
-      suffix: '%', 
+    {
+      labelKey: 'stats.uptime.label',
+      value: 99.2,
+      suffix: '%',
       icon: ShieldCheckIcon,
       descriptionKey: 'stats.uptime.description'
     },
@@ -63,8 +63,8 @@ export default function StatsSection() {
   };
 
   return (
-    <section 
-      id="stats-section" 
+    <section
+      id="stats-section"
       className="py-20 bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,19 +80,19 @@ export default function StatsSection() {
             <CodeBracketIcon className="w-4 h-4 mr-2" />
             {t('stats.headerBadge', 'वर्तमान में विकासाधीन')}
           </div>
-          
+
           <h2 className="text-3xl lg:text-4xl font-black text-gray-900 dark:text-gray-100 mb-4">
             {t('stats.titleLine1', 'स्वास्थ्य देखभाल का भविष्य')}
             <span className="gradient-accent bg-clip-text text-transparent"> {t('stats.titleAccent', 'बना रहे हैं')}</span>
           </h2>
-          
+
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             {t('stats.subtitle', "हम स्वास्थ्य पेशेवरों के साथ मिलकर एक ऐसा प्लेटफ़ॉर्म बना रहे हैं जो वास्तव में उनकी जरूरतों को पूरा करे। अब तक हमारी प्रगति यहां है।")}
           </p>
         </motion.div>
 
         {/* Stats Grid */}
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -151,11 +151,11 @@ export default function StatsSection() {
                 <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
               </div>
             </div>
-            
+
             <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
               {t('stats.betaProgram.title')}
             </h3>
-            
+
             <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
               {t('stats.betaProgram.description')}
             </p>

@@ -12,30 +12,17 @@ import {
   MapPinIcon,
   EnvelopeIcon,
   PhoneIcon,
-  Bars3Icon,
-  SunIcon,
-  MoonIcon,
-  BeakerIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { GitBranch } from "lucide-react";
-import GitHubStatsSection from '../components/common/GitHubStatsSection';
+import GitHubStatsSection from '../shared/components/common/GitHubStatsSection';
+import Navbar from '../shared/components/common/Navbar';
 import { motion } from 'framer-motion';
 import Footer from './Footer';
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "../shared/hooks/contexts/ThemeContext";
 
 const AboutPage = () => {
-  const [activeValue, setActiveValue] = useState(0);
   const { isDark, toggleTheme } = useTheme();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
-    }
-  }, [isMobileMenuOpen]);
 
   const values = [
     {
@@ -130,131 +117,7 @@ const AboutPage = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-      <nav className="fixed top-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-gray-200/50 dark:border-gray-800/50 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center">
-              <div className="w-10 h-10">
-                <img
-                  src="/CareSync-Logo.png"
-                  alt="CareSync Logo"
-                  className="w-full h-full"
-                />
-              </div>
-              <span
-                className="ml-3 font-bold text-emerald-600 dark:text-emerald-400"
-                style={{ fontSize: "1.375rem" }}
-              >
-                CareSync
-              </span>
-            </Link>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-center space-x-8">
-                {["Home", "Features", "Pricing", "Testimonials", "Contact"].map(
-                  (item) => (
-                    <Link
-                      key={item}
-                      to={item === "Home" ? "/" : `/#${item.toLowerCase()}`}
-                      className="flex gap-2 items-center text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium relative group
-              after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:bg-emerald-600 after:scale-x-0 after:origin-center after:transition-transform after:duration-300
-              hover:after:scale-x-100"
-                    >
-                      {item}
-                    </Link>
-                  )
-                )}
-              </div>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                <Bars3Icon className="h-6 w-6" />
-              </button>
-            </div>
-
-            <div className="hidden md:flex items-center space-x-4">
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                aria-label="Toggle dark mode"
-              >
-                {isDark ? (
-                  <SunIcon className="h-5 w-5" />
-                ) : (
-                  <MoonIcon className="h-5 w-5" />
-                )}
-              </button>
-
-              <Link
-                to="/login"
-                className="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium"
-              >
-                Sign In
-              </Link>
-              <Link
-                to="/register"
-                className="gradient-accent text-white px-6 py-2.5 rounded-xl hover:shadow-lg transition-all duration-300 font-semibold"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="relative md:hidden">
-            <div className="absolute right-0 w-52 h-dvh pt-10 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-800">
-              {["Home", "Features", "Pricing", "Testimonials", "Contact"].map(
-                (item) => (
-                  <Link
-                    key={item}
-                    to={item === "Home" ? "/" : `/#${item.toLowerCase()}`}
-                    className="block text-center py-3 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium relative group
-              after:content-[''] after:absolute after:left-0 after:bottom-1 after:h-[2px] after:w-full after:bg-emerald-600 after:scale-x-0 after:origin-center after:transition-transform after:duration-300
-              hover:after:scale-x-100"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item}
-                  </Link>
-                )
-              )}
-              <div className="flex flex-col space-y-2 mt-20 px-3">
-                <button
-                  onClick={toggleTheme}
-                  className="text-center py-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center justify-center gap-2"
-                >
-                  {isDark ? (
-                    <SunIcon className="h-5 w-5" />
-                  ) : (
-                    <MoonIcon className="h-5 w-5" />
-                  )}
-                  {isDark ? "Light Mode" : "Dark Mode"}
-                </button>
-                <Link
-                  to="/login"
-                  className="text-center py-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/register"
-                  className="gradient-accent text-white px-4 py-2 rounded-lg text-center font-semibold"
-                >
-                  Get Started
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 overflow-hidden pt-20">
@@ -284,7 +147,7 @@ const AboutPage = () => {
               ease: "linear"
             }}
           />
-        </div>
+        </div >
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -359,10 +222,10 @@ const AboutPage = () => {
             </motion.div>
           </motion.div>
         </div>
-      </section>
+      </section >
 
       {/* Mission & Vision Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      < section className="py-20 bg-gray-50 dark:bg-gray-900" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -404,13 +267,13 @@ const AboutPage = () => {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* GitHub Stats Section - Using the API Component */}
-      <GitHubStatsSection />
+      < GitHubStatsSection />
 
       {/* Core Values Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      < section className="py-20 bg-gray-50 dark:bg-gray-900" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -460,10 +323,10 @@ const AboutPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Community Team */}
-      <section className="py-20 bg-white dark:bg-gray-950">
+      < section className="py-20 bg-white dark:bg-gray-950" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -527,16 +390,16 @@ const AboutPage = () => {
 
           <motion.div
             className="text-center mt-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-            />
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+          />
         </div>
-      </section>
+      </section >
 
       {/* Timeline Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900">
+      < section className="py-20 bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -595,10 +458,10 @@ const AboutPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Contribution CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-500 via-teal-600 to-blue-600 relative overflow-hidden">
+      < section className="py-20 bg-gradient-to-br from-emerald-500 via-teal-600 to-blue-600 relative overflow-hidden" >
         <div className="absolute inset-0 bg-black/10" />
         <motion.div
           className="absolute inset-0 opacity-20"
@@ -678,10 +541,10 @@ const AboutPage = () => {
             </motion.div>
           </motion.div>
         </div>
-      </section>
+      </section >
 
       <Footer />
-    </div>
+    </div >
   );
 };
 

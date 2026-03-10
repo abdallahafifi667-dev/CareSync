@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Search, ChevronLeft, ChevronRight } from "lucide-react";
-import Navbar from "../components/common/Navbar";
+import Navbar from "../shared/components/common/Navbar";
 import Footer from "../pages/Footer";
 import { useTranslation } from "react-i18next";
 
@@ -97,7 +97,7 @@ document.head.appendChild(style);
 export default function Blog() {
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
-  const [expandedId, setExpandedId] = useState(null); 
+  const [expandedId, setExpandedId] = useState(null);
   const [filtered, setFiltered] = useState(posts);
   const [currentPage, setCurrentPage] = useState(1);
   const scrollContainerRef = useRef(null);
@@ -124,7 +124,7 @@ export default function Blog() {
   const scroll = (direction) => {
     const container = scrollContainerRef.current;
     if (container) {
-      const scrollAmount = 400; 
+      const scrollAmount = 400;
       container.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -133,7 +133,7 @@ export default function Blog() {
   };
 
   const toggleExpand = (id) => {
-    setExpandedId(expandedId === id ? null : id); 
+    setExpandedId(expandedId === id ? null : id);
   };
 
   useEffect(() => {

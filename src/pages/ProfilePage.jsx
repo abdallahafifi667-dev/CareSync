@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import LoadingSpinner from '../components/common/LoadingSpinner';
+import { useAuth } from '../shared/hooks/contexts/AuthContext';
+import LoadingSpinner from '../shared/components/common/LoadingSpinner';
 
 const ProfilePage = () => {
   const { user, loading } = useAuth();

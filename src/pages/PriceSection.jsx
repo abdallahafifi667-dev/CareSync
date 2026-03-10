@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../shared/hooks/contexts/AuthContext";
 
 export default function Pricing() {
   const { t } = useTranslation();

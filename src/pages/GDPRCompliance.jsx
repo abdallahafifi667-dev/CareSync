@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { 
+import {
   ShieldCheckIcon,
   UserIcon,
   KeyIcon,
@@ -21,7 +21,7 @@ import {
   EnvelopeIcon
 } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
-import Navbar from '../components/common/Navbar';
+import Navbar from '../shared/components/common/Navbar';
 import Footer from './Footer';
 
 const GDPRCompliance = () => {
@@ -204,9 +204,9 @@ const GDPRCompliance = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       transition: { duration: 0.6, ease: "easeOut" }
     }
   };
@@ -226,33 +226,33 @@ const GDPRCompliance = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-        <Navbar/>
+      <Navbar />
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <motion.div 
+          <motion.div
             className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 dark:from-emerald-400/10 dark:to-teal-400/10 rounded-full blur-3xl"
-            animate={{ 
+            animate={{
               scale: [1, 1.2, 1],
-              rotate: [0, 180, 360] 
+              rotate: [0, 180, 360]
             }}
-            transition={{ 
-              duration: 20, 
-              repeat: Infinity, 
-              ease: "linear" 
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear"
             }}
           />
-          <motion.div 
+          <motion.div
             className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-teal-400/20 to-blue-400/20 dark:from-teal-400/10 dark:to-blue-400/10 rounded-full blur-3xl"
-            animate={{ 
+            animate={{
               scale: [1.2, 1, 1.2],
-              rotate: [360, 180, 0] 
+              rotate: [360, 180, 0]
             }}
-            transition={{ 
-              duration: 25, 
-              repeat: Infinity, 
-              ease: "linear" 
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear"
             }}
           />
         </div>
@@ -264,14 +264,14 @@ const GDPRCompliance = () => {
             variants={containerVariants}
             className="text-center"
           >
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="inline-flex items-center bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 text-emerald-700 dark:text-emerald-300 px-6 py-3 rounded-full text-sm font-semibold shadow-sm mb-8"
             >
               🇪🇺 GDPR Compliant Since May 2018
             </motion.div>
 
-            <motion.h1 
+            <motion.h1
               variants={itemVariants}
               className="text-5xl lg:text-7xl font-black text-gray-900 dark:text-gray-100 leading-tight mb-8"
             >
@@ -281,14 +281,14 @@ const GDPRCompliance = () => {
               </span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto mb-12 font-medium"
             >
               CareSync is fully compliant with the General Data Protection Regulation (GDPR), ensuring your personal data is protected with the highest standards of privacy and security.
             </motion.p>
 
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-base text-gray-600 dark:text-gray-400"
             >
@@ -313,13 +313,13 @@ const GDPRCompliance = () => {
             variants={containerVariants}
             className="text-center mb-16"
           >
-            <motion.h2 
+            <motion.h2
               variants={itemVariants}
               className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4"
             >
               GDPR Data Protection Principles
             </motion.h2>
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-xl text-gray-600 dark:text-gray-300"
             >
@@ -363,13 +363,13 @@ const GDPRCompliance = () => {
             variants={containerVariants}
             className="text-center mb-16"
           >
-            <motion.h2 
+            <motion.h2
               variants={itemVariants}
               className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4"
             >
               Your Data Rights Under GDPR
             </motion.h2>
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-xl text-gray-600 dark:text-gray-300"
             >
@@ -405,9 +405,9 @@ const GDPRCompliance = () => {
 
                 <motion.div
                   initial={false}
-                  animate={{ 
+                  animate={{
                     height: activeRight === index ? 'auto' : 0,
-                    opacity: activeRight === index ? 1 : 0 
+                    opacity: activeRight === index ? 1 : 0
                   }}
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
@@ -444,13 +444,13 @@ const GDPRCompliance = () => {
             variants={containerVariants}
             className="text-center mb-16"
           >
-            <motion.h2 
+            <motion.h2
               variants={itemVariants}
               className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4"
             >
               Exercise Your Data Rights
             </motion.h2>
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-xl text-gray-600 dark:text-gray-300"
             >
@@ -629,13 +629,13 @@ const GDPRCompliance = () => {
             variants={containerVariants}
             className="text-center mb-16"
           >
-            <motion.h2 
+            <motion.h2
               variants={itemVariants}
               className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4"
             >
               Our GDPR Compliance Measures
             </motion.h2>
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-xl text-gray-600 dark:text-gray-300"
             >
@@ -664,7 +664,7 @@ const GDPRCompliance = () => {
                     </h3>
                   </div>
                 </div>
-                
+
                 <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg leading-relaxed">
                   {measure.description}
                 </p>
@@ -688,15 +688,15 @@ const GDPRCompliance = () => {
       {/* Contact DPO Section */}
       <section className="py-20 bg-gradient-to-br from-emerald-500 via-teal-600 to-blue-600 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10" />
-        <motion.div 
+        <motion.div
           className="absolute inset-0 opacity-20"
-          animate={{ 
+          animate={{
             backgroundPosition: ['0% 0%', '100% 100%'],
           }}
-          transition={{ 
-            duration: 20, 
-            repeat: Infinity, 
-            repeatType: "reverse" 
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: "reverse"
           }}
         >
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-y-12" />
@@ -715,7 +715,7 @@ const GDPRCompliance = () => {
                 Contact Our Data Protection Officer
               </h2>
               <p className="text-xl text-white/90 mb-8 font-medium leading-relaxed">
-                Have questions about GDPR compliance or need assistance with your data rights? 
+                Have questions about GDPR compliance or need assistance with your data rights?
                 Our certified DPO is here to help you navigate data protection matters.
               </p>
 
@@ -752,33 +752,33 @@ const GDPRCompliance = () => {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20"
             >
               <h3 className="text-2xl font-bold text-white mb-6">Quick GDPR Facts</h3>
-              
+
               <div className="space-y-6">
                 {[
-                  { 
+                  {
                     title: "30-Day Response Time",
                     description: "We respond to all GDPR requests within the legally required timeframe",
-                    icon: ClockIcon 
+                    icon: ClockIcon
                   },
-                  { 
+                  {
                     title: "Free of Charge",
                     description: "All GDPR rights can be exercised at no cost to you",
-                    icon: CheckCircleIcon 
+                    icon: CheckCircleIcon
                   },
-                  { 
+                  {
                     title: "Secure Processing",
                     description: "All requests are handled through encrypted, secure channels",
-                    icon: LockClosedIcon 
+                    icon: LockClosedIcon
                   },
-                  { 
+                  {
                     title: "Identity Verification",
                     description: "We verify identity to protect against unauthorized access",
-                    icon: ShieldCheckIcon 
+                    icon: ShieldCheckIcon
                   }
                 ].map((fact, index) => (
                   <motion.div
@@ -806,7 +806,7 @@ const GDPRCompliance = () => {
                 className="mt-8"
               >
                 <a href="/contact"> <button className="w-full bg-white text-emerald-600 px-8 py-4 rounded-xl hover:bg-gray-50 transition-all duration-300 font-bold text-lg shadow-xl hover:shadow-2xl">
-                 Contact DPO Now
+                  Contact DPO Now
                 </button></a>
               </motion.div>
             </motion.div>
@@ -824,13 +824,13 @@ const GDPRCompliance = () => {
             variants={containerVariants}
             className="text-center mb-16"
           >
-            <motion.h2 
+            <motion.h2
               variants={itemVariants}
               className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4"
             >
               Legal Framework & Compliance
             </motion.h2>
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-xl text-gray-600 dark:text-gray-300"
             >
@@ -948,7 +948,7 @@ const GDPRCompliance = () => {
           </motion.div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

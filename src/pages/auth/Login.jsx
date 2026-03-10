@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../shared/hooks/contexts/AuthContext";
 import {
   Mail,
   Lock,
@@ -10,14 +10,14 @@ import {
   UserCheck,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Navbar from "../../components/common/Navbar";
-import Footer from "../Footer";
+import Navbar from "../../shared/components/common/Navbar";
+
 import { useTranslation } from "react-i18next";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
   const { t } = useTranslation();
-  const { login, loginWithGoogle } = useAuth();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -70,6 +70,10 @@ const Login = () => {
       setLoading(true);
       const result = await login(formData.email, formData.password, formData.role);
       if (result.success && result.user) {
+        // Dispatch cursor burst on success
+        window.dispatchEvent(new CustomEvent('cursor-burst', {
+          detail: { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+        }));
         navigate(`/${result.user.role}`);
       } else {
         navigate("/");
@@ -85,22 +89,27 @@ const Login = () => {
     try {
       setError("");
       setLoading(true);
-     const user = await loginWithGoogle();
-     if (user) {
-      toast.success("Google login successful! Redirecting...", {
-        duration: 3000,
-        icon: "🎉",
-      });
+      const user = await loginWithGoogle();
+      if (user) {
+        // Dispatch cursor burst on success
+        window.dispatchEvent(new CustomEvent('cursor-burst', {
+          detail: { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+        }));
+        toast.success("Google login successful! Redirecting...", {
+          duration: 3000,
+          icon: "🎉",
+        });
 
-      // Navigate after a short delay so toast can appear
-      
-       navigate(`/${user.role || "home"}`);  
-      
-     }
+        // Navigate after a short delay so toast can appear
+
+        navigate(`/${user.role || "home"}`);
+
+      }
     } catch (err) {
       setError(t("login.errorGoogle") + ": " + err.message);
     } finally {
-    setLoading(false)};
+      setLoading(false)
+    };
   };
 
   return (
@@ -278,33 +287,19 @@ const Login = () => {
             </motion.div>
 
             {/* Submit */}
-           <motion.button
-  type="submit"
-  disabled={loading}
-  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 text-base font-semibold rounded-2xl text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 disabled:opacity-50 shadow-xl transition-all duration-300"
-  whileHover={{ scale: loading ? 1 : 1.03 }}
-  whileTap={{ scale: loading ? 1 : 0.97 }}
-  variants={itemVariants}
->
-  {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : t("login.submit")}
-</motion.button>
-
-
-            {/* Google */}
             <motion.button
-              type="button"
-              onClick={handleGoogleLogin}
+              type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center py-3 px-4 border border-gray-300 dark:border-gray-600 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 bg-white hover:bg-gray-50 dark:bg-gray-700/50 transition-all disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 py-3.5 px-6 text-base font-semibold rounded-2xl text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 disabled:opacity-50 shadow-xl transition-all duration-300"
+              whileHover={{ scale: loading ? 1 : 1.03 }}
+              whileTap={{ scale: loading ? 1 : 0.97 }}
               variants={itemVariants}
             >
-              <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                alt="Google"
-                className="h-5 w-5 mr-2"
-              />
-              {t("login.google")}
+              {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : t("login.submit")}
             </motion.button>
+
+
+
 
             {/* Sign Up */}
             <motion.p
@@ -322,7 +317,7 @@ const Login = () => {
           </form>
         </motion.div>
       </div>
-      <Footer />
+
     </>
   );
 };

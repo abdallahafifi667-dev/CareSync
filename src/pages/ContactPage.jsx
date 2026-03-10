@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Navbar from "../components/common/Navbar";
-import { ThemeProvider } from "../contexts/ThemeContext";
+import Navbar from "../shared/components/common/Navbar";
+import { ThemeProvider } from "../shared/hooks/contexts/ThemeContext";
 import Footer from "../pages/Footer";
 import { Link } from "react-router-dom";
 import {
@@ -29,18 +29,16 @@ const Button = ({
   className = "",
   icon,
 }) => {
-  const baseClasses = `flex items-center justify-center font-bold rounded-xl transition-all duration-300 ${
-    size === "lg" ? "px-8 py-4 text-lg" : "px-4 py-2 text-sm"
-  } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`;
+  const baseClasses = `flex items-center justify-center font-bold rounded-xl transition-all duration-300 ${size === "lg" ? "px-8 py-4 text-lg" : "px-4 py-2 text-sm"
+    } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`;
 
   const primaryClasses =
     "gradient-accent text-white hover:shadow-lg transform hover:scale-105";
   const secondaryClasses =
     "border-2 border-white text-white hover:bg-white hover:text-emerald-600 backdrop-blur-sm";
 
-  const combinedClasses = `${baseClasses} ${
-    variant === "primary" ? primaryClasses : secondaryClasses
-  } ${className}`;
+  const combinedClasses = `${baseClasses} ${variant === "primary" ? primaryClasses : secondaryClasses
+    } ${className}`;
 
   if (href) {
     return (
@@ -155,7 +153,7 @@ const ContactPage = () => {
         </div>
       </section>
 
-     
+
 
 
       {/* Main Contact Section */}

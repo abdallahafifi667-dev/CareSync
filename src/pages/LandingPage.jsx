@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../shared/hooks/contexts/AuthContext";
 import FAQSection from "./FAQSection";
 import {
   CheckIcon,
@@ -30,12 +30,12 @@ import StatsSection from "./StatsSection";
 import Testimonials from "./Testimonials";
 import Footer from "./Footer";
 // import Carousel from "./Carousel";
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "../shared/hooks/contexts/ThemeContext";
 import ContactUs from "./ContactUs";
-import Navbar from "../components/common/Navbar";
-import CalendarModal from "../components/common/CalendarModal";
+import Navbar from "../shared/components/common/Navbar";
+import CalendarModal from "../shared/components/common/CalendarModal";
 import Feature from "./Feature";
-import ScrollProgress from "../components/common/ScrollProgress";
+import ScrollProgress from "../shared/components/common/ScrollProgress";
 import { useTranslation } from "react-i18next";
 
 //Make the heading typewriter

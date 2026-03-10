@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../shared/hooks/contexts/AuthContext';
 import { Mail, Loader2, ArrowLeft, CheckCircle, AlertTriangle, Inbox } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import Navbar from '../../components/common/Navbar';
-import Footer from '../Footer';
+import Navbar from '../../shared/components/common/Navbar';
+
 
 const ForgotPassword = () => {
     const { resetPassword } = useAuth();
@@ -43,8 +43,10 @@ const ForgotPassword = () => {
             setMessage('');
             setLoading(true);
             await resetPassword(email);
-            setMessage(t("forgot.success"));
             toast.success(t("forgot.success"));
+            setTimeout(() => {
+                navigate('/verify-code', { state: { email } });
+            }, 1500);
         } catch (err) {
             setError(t("forgot.error"));
             toast.error(t("forgot.error"));
@@ -193,7 +195,7 @@ const ForgotPassword = () => {
                     </motion.div>
                 </motion.div>
             </div>
-            <Footer />
+
         </>
     );
 };
